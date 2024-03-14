@@ -5,4 +5,4 @@ run: build-app
 	@./bin/tiem
 
 clean:
-	@rm -rf bin
+	@rm -rf bin tmp

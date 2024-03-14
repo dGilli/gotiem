@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	db, err := db.OpenDB("example.db")
+	db, err := db.OpenDB("tmp/example.db")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Cannot open database: %s\n", err)
 		return
