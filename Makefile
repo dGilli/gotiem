@@ -1,8 +1,13 @@
-build-app:
+build-tiem:
 	@go build -o bin/tiem ./cmd/tiem/
+build-ui:
+	@go build -o bin/ui ./cmd/ui/
 
-run: build-app
+run-tiem: build-tiem
 	@./bin/tiem
+run-ui: build-tiem build-ui
+	@./bin/ui
+run: run-ui
 
 clean:
-	@rm -rf bin tmp
+	@rm -rf go.sum bin tmp
