@@ -24,7 +24,7 @@ func TestWriteTimeEntry(t *testing.T) {
         t.Fatalf("Failed to parse time: %s", err)
     }
     testEntry := TimeEntry{
-        Time: testTime,
+        StartTime: testTime,
     }
 
     if _, err := WriteTimeEntry(testDB, testEntry); err != nil {
