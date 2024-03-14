@@ -2,6 +2,7 @@ package timeentry
 
 import (
 	"testing"
+	"time"
 
 	"github.com/dGilli/gotiem/internal/db"
 
@@ -17,7 +18,15 @@ func TestWriteTimeEntry(t *testing.T) {
 	defer testDB.Close()
 
 	// Define a test entry
-    testEntry := TimeEntry{Time: "foobar"}
+    timeStr := "2024-11-01 10:00:00"
+    testTime, err := time.Parse(time.DateTime, timeStr)
+    if err != nil {
+        t.Fatalf("Failed to parse time: %s", err)
+    }
+    testEntry := TimeEntry{
+        Time: testTime,
+    }
+
     if _, err := WriteTimeEntry(testDB, testEntry); err != nil {
         t.Fatalf("Failed to write time entry: %s", err)
     }
@@ -29,8 +38,8 @@ func TestWriteTimeEntry(t *testing.T) {
 		t.Fatalf("Failed to retrieve time entry: %s", err)
 	}
 
-	if retrievedTime != testEntry.Time {
-		t.Errorf("Expected to retrieve entry '%s', got '%s'", testEntry.Time, retrievedTime)
+	if retrievedTime != timeStr {
+		t.Errorf("Expected to retrieve entry '%s', got '%s'", timeStr, retrievedTime)
 	}
 }
 

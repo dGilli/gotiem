@@ -28,7 +28,12 @@ func main() {
 
 		fmt.Printf("You typed: %s\n", text)
 
-        entry := timeentry.TimeEntry{Time: "foobar"}
+        entry, err := timeentry.NewTimeEntry("2024-11-01 10:00:00")
+        if err != nil {
+            fmt.Fprintf(os.Stderr, "Error: %s\n", err)
+            continue
+        }
+
 		if _, err := timeentry.WriteTimeEntry(db, entry); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
 			continue
