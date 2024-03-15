@@ -1,13 +1,15 @@
-build-tiem:
-	@go build -o bin/tiem ./cmd/tiem/
-build-ui:
-	@go build -o bin/ui ./cmd/ui/
+bin/%:
+	@mkdir -p $(@D)
+	@go build -o $@ ./cmd/$(notdir $@)
 
-run-tiem: build-tiem
-	@./bin/tiem
-run-ui: build-tiem build-ui
-	@./bin/ui
-run: run-ui
+run: bin/$(filter-out run,$(MAKECMDGOALS))
+	@mkdir -p ./tmp
+	@./bin/$(filter-out $@,$(MAKECMDGOALS))
 
 clean:
-	@rm -rf go.sum bin tmp
+	@rm -rf bin tmp
+
+%:
+	@:
+# ref: https://stackoverflow.com/questions/6273608/how-to-pass-argument-to-makefile-from-command-line
+
